@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Temas: claro (por defecto) y oscuro. El bronce de acento NO es el mismo
+ * color en los dos temas — #D9A05B no llega al contraste mínimo de WCAG AA
+ * sobre el fondo claro, por eso cada tema define su propio --color-accent.
+ * No reutilizar el valor de un tema dentro del otro.
+ */
+:root,
+[data-theme="light"] {
+  --color-bg: #f7f3ec;
+  --color-fg: #1e1a16;
+  --color-fg-muted: #4a4238;
+  --color-accent: #7a4a18;
+  --color-border: #ded4c3;
+  --color-surface: #e7dfd2;
+  --color-surface-border: #d8cdbb;
+  --color-surface-label: #6a6052;
+  --color-input-bg: #fffdf9;
+  --color-input-border: #c9bda8;
+  --color-label: #5c5346;
+  --color-footer-fg: #6a6052;
+}
+
+[data-theme="dark"] {
+  --color-bg: #15120f;
+  --color-fg: #f2ede4;
+  --color-fg-muted: #cfc5b6;
+  --color-accent: #d9a05b;
+  --color-border: #332b23;
+  --color-surface: #221d18;
+  --color-surface-border: #332b23;
+  --color-surface-label: #9b8e7d;
+  --color-input-bg: #1d1915;
+  --color-input-border: #3d342a;
+  --color-label: #b5a997;
+  --color-footer-fg: #9b8e7d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-fg);
+  --color-foreground-muted: var(--color-fg-muted);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+  --color-surface: var(--color-surface);
+  --color-surface-border: var(--color-surface-border);
+  --color-surface-label: var(--color-surface-label);
+  --color-input-bg: var(--color-input-bg);
+  --color-input-border: var(--color-input-border);
+  --color-label: var(--color-label);
+  --color-footer-foreground: var(--color-footer-fg);
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-asap);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+/* Respeta "reduce motion" para el cambio de tema y cualquier transición futura. */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
 }
